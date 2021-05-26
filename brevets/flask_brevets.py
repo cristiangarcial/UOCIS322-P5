@@ -3,6 +3,7 @@ Replacement for RUSA ACP brevet time calculator
 (see https://rusa.org/octime_acp.html)
 
 """
+import json
 import os
 from pymongo import MongoClient
 import flask
@@ -18,7 +19,8 @@ import logging
 ###
 app = flask.Flask(__name__)
 CONFIG = config.configuration()
-
+client = MongoClient('mongodb://' + os.environ['MONGODB_HOSTNAME'], 27017)
+db = client.tododb
 ###
 # Pages
 ###
@@ -33,6 +35,14 @@ def index():
 def dispaly():
     return flask.render_template('display.html', items=list(db.tododb.find()))
 
+@app.route("/someroute", methods=['POST'])
+def dispaly():
+    brevet_input = json.loads(request.form.get("brevet_data"))
+    item_doc = {
+        
+    }
+    db.todo.insert_one(item_doc)
+    return jsonify(response)
 
 @app.route(404)
 def page_not_found(error):

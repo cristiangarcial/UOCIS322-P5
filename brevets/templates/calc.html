@@ -31,7 +31,7 @@
    <body>
       <div class="container">
          <h1>ACP Brevet Times</h1>
-         <p>This worksheet is for ACP-sanctioned brevets between 200 and 1000 kilometers.</p>
+         <p>This worksheet is for ACP-sanctioned brevets between 200 and 1000 kms.</p>
          <!--
             If there are any warnings or other messages from a prior
             request to the server,
@@ -180,16 +180,26 @@
                  });
 
                 $('#submit').click(
+                   // make javascript array and then push all values from html to array and then send 
                     function(e) {
                     e.preventDefault();
+                    var brevet_data = {};
                     $('.control').each(
                         function(index, obj)
                         {
-                           console.log(index,  
-                            $(obj).find("input[name='km']").val(),
-                            $(obj).find("input[name='open']").val(),
-                            $(obj).find("input[name='close']").val()); 
+                            var kms = $(obj).find("input[name='km']").val();
+                            var open = $(obj).find("input[name='open']").val();
+                            var close = $(obj).find("input[name='close']").val();
+                            console.log(index);
+                            console.log(kms);
+                            if (kms) {
+                                brevet_data.push({kms: kms, open: open, close: close});
+                                window.alert("Submitted Brevet control distance, open, and close times.");
+                            }
                         });
+                    $.post("/someroute", {brevet_data: JSON.stringify(brevet_data)},
+                        function(response) 
+                        {console.log("response:", response.output)}, "json");
                     // calculate all the non-empty fields
                  });
               });
