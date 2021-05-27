@@ -10,5 +10,7 @@ services:
             - ourdb
         environment:
             MONGODB_HOSTNAME: ourdb
+        volumes:
+            - .:/app
     ourdb:
         image: mongo:latest

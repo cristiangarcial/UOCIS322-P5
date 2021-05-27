@@ -183,7 +183,7 @@
                    // make javascript array and then push all values from html to array and then send 
                     function(e) {
                     e.preventDefault();
-                    var brevet_data = {};
+                    var brevet_data = [];
                     $('.control').each(
                         function(index, obj)
                         {
@@ -196,6 +196,7 @@
                                 brevet_data.push({kms: kms, open: open, close: close});
                                 window.alert("Submitted Brevet control distance, open, and close times.");
                             }
+                            console.log(brevet_data);
                         });
                     $.post("/someroute", {brevet_data: JSON.stringify(brevet_data)},
                         function(response) 

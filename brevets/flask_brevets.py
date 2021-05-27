@@ -38,9 +38,14 @@ def dispaly():
 @app.route("/someroute", methods=['POST'])
 def dispaly():
     brevet_input = json.loads(request.form.get("brevet_data"))
-    item_doc = {
-        
-    }
+    db.todo.drop()
+    app.logger.debug(brevet_input)
+    for index  in brevet_input:
+        item_doc = {
+            'kms': index['kms']
+            'open': index['open']
+            'close': index['close']
+        }
     db.todo.insert_one(item_doc)
     return jsonify(response)
 
