@@ -11,8 +11,8 @@ from flask import request, Flask, redirect, url_for, request, render_template
 import arrow  # Replacement for datetime, based on moment.js
 import acp_times  # Brevet time calculations
 import config
-
 import logging
+
 
 ###
 # Globals
@@ -20,7 +20,7 @@ import logging
 app = flask.Flask(__name__)
 CONFIG = config.configuration()
 client = MongoClient('mongodb://' + os.environ['MONGODB_HOSTNAME'], 27017)
-db = client.tododb
+db = client.brevetdbs
 ###
 # Pages
 ###
@@ -33,7 +33,7 @@ def index():
 
 @app.route("/displayroute", methods=['POST'])
 def dispaly():
-    return flask.render_template('display.html', items=list(db.tododb.find()))
+    return flask.render_template('display.html', items=list(db.brevetdbs.find()))
 
 @app.route("/someroute", methods=['POST'])
 def dispaly():
@@ -42,8 +42,8 @@ def dispaly():
     app.logger.debug(brevet_input)
     for index  in brevet_input:
         item_doc = {
-            'kms': index['kms']
-            'open': index['open']
+            'kms': index['kms'],
+            'open': index['open'],
             'close': index['close']
         }
     db.todo.insert_one(item_doc)

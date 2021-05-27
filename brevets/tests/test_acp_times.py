@@ -32,19 +32,3 @@ def test_closing():
     assert correct_close_time_1 == output_close_1
     assert correct_close_time_2 == output_close_2
 
-def test_edgecases():
-    correct_close_time_1 = START_TIME.shift(hour=+3, minutes=+40)
-
-    output_close_1 = acp_times.open_time(200, 200, START_TIME)
-
-    assert correct_close_time_1 == output_close_1
-
-
-def test_edgecases_2():
-    correct_close_time_1 = START_TIME.shift(hour=+26, minutes=+40)
-
-    output_close_1 = acp_times.open_time(400, 400, START_TIME)
-
-    assert correct_close_time_1 == output_close_1
-
-

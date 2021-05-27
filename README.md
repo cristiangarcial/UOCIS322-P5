@@ -1,82 +1,29 @@
-# UOCIS322 - Project 5 #
-Brevet time calculator with AJAX and MongoDB!
+# UOCIS322 - Project 4 #
+Brevet time calculator.
 
 ## Overview
 
-Store control times from Project 4 in a MongoDB database.
+## Author: Cristian Garcia Leon, cgarcial@uoregon.edu ##
 
-### What is in this repository
+# Project Part 4
+A website based on the RUSA algorithm for calculating open and close times
+based on a milepost, called brevet distance, and control posts along the way.
 
-You have a minimal example of `docker-compose` in `DockerMongo`, using which you can connect a Flask app to MongoDB (as demonstrated in class). Refer to the lecture slides for more details on MongoDB and `docker-compose`. Solved `acp_times.py` file will be made available on Canvas under Files after the project due date.
+My implementation of the algorithm shifts the output time by minutes per Ali's suggestion.
 
-## IMPORTANT NOTES
+If the user inputs a control point of more than 120% of the brevet distance it will return -1.
 
-**MAKE SURE TO USE THE SOLUTION `acp_times.py` from Canvas for this project!**
+First, we get the the offset for a particular brevet distance. We also need to subtract
+the previous brevet distances so we don't do include the total distance for a particular section.
 
-**MAKE SURE TO KEEP YOUR FILES in `brevets`! REMOVE `DockerMongo` after you're done!**
+We use four tables for getting the time from the previous brevet sections and the minimum and maximum speed
+for each section.
 
-## Getting started
+We then separate the offset by hour and minutes and then conver the hours to minutes and shift our starting time
+and then return the output.
 
-You will reuse *your* code from Project 4 (and the solution `acp_times.py` file for consistency), meaning you will get rid of `DockerMongo` (it's just an example, like `minijax` in Project 3), and use ideas from it to make some changes.
+When I was doing testing, I notice that when the control distance and the brevet distance were the same at 200km and 400km my algorithm was off by 10min and 20min. That edge case is accounted for the in the code.
 
-Recall that you created a list of open and close control times using AJAX. In this project, you will add the following:
 
-1. Add two buttons `Submit` and `Display` in the ACP calculator page.
-
-2. Upon clicking the `Submit` button, the control times should be inserted into a MongoDB database.
-
-3. Upon clicking the `Display` button, the entries from the database should be displayed in a new page.
-
-Handle error cases appropriately. For example, Submit should return an error if no control times are input. One can imagine many such cases: you'll come up with as many cases as possible.
-
-## Tasks
-
-As always you'll turn in your `credentials.ini` using Canvas, which will point to your repository on GitHub, which should contain:
-
-* `Dockerfile`
-
-* `docker-compose.yml`
-
-* The working application.
-
-* A README.md file that includes not only identifying information (your name) but but also a revised, clear specification of the brevet control time calculation rules (you were supposed to do this for Project 4), with additional information regarding this project.
-
-* An automated `nose` test suite with at least 2 test cases: at least one for the time calculator, and another for DB insertion and retrieval.
-
-## Grading Rubric
-
-* If your code works as expected: 100 points. This includes:
-	* Front-end implementation (`Submit` and `Display`).
-	
-	* Back-end implementation (Connecting to MongoDB, insertion and selection).
-	
-	* AJAX interaction between the frontend and backend (AJAX for `Submit` and `Display`).
-	
-	* Updating `README` with a clear specification (including details from Project 4).
-	
-	* Writing at least 2 correct tests using nose (put them in `tests`, follow Project 3 if necessary), and all should pass.
-
-* If the AJAX logic is not working, **10** points will be docked off. 
-
-* If the logic to insert into or retrieve from the database is wrong, **30** points will be docked off.
-
-* If the README is not clear or missing, up to **15** points will be docked off. 
-
-* If any of the two test cases are incorrect or fail, up to **15** points will be docked off. 
-
-* If none of the functionalities work, 30 points will be given assuming 
-    * The `credentials.ini` is submitted with the correct URL of your repo, and
-    * `Dockerfile` is present 
-    * `docker-compose.yml` works/builds without any errors 
-
-* If none of the functionalities work, 30 points will be given assuming `credentials.ini` is submitted with the correct URL of your repo, `Dockerfile` builds and runs without any errors, and `docker-compose.yml` is correct and works.
-
-* If `docker-compose.yml` is missing, doesn't build or doesn't run, 10 points will be docked off.
-    
-* If `Dockerfile` is missing, doesn't build or doesn't run, 10 points will be docked off.
-	
-* If `credentials.ini` is not submitted or the repo is not found, 0 will be assigned.
-
-## Credits
-
-Michal Young, Ram Durairajan, Steven Walton, Joe Istas.
+# Project Part 5
+This project has been updated to include a submit and display button. When a user presses the submit button a message is displayed on the webpage notify the user that the data was submitted successfully. The distance in kms, the open, and close times are collected using the .each javascript function. Then that information is send with post to flask brevet.py. Then in flask brevet.py the information is loaded in and added to the database. When the user presses the diplay button, a new webpage is loaded and displays the information that was collected.

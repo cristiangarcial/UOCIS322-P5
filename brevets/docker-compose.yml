@@ -7,9 +7,9 @@ services:
         ports:
             - "5556:5000"
         depends_on:
-            - ourdb
+            - brevdbs
         environment:
-            MONGODB_HOSTNAME: ourdb
+            MONGODB_HOSTNAME: brevdbs
         volumes:
             - .:/app
     ourdb:
