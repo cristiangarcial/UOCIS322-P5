@@ -3,14 +3,12 @@ version: '3'
 services:
     web:
         build: .
-        command: python -u flask_brevet.py
+        command: python -u flask_brevets.py
         ports:
             - "5556:5000"
         depends_on:
-            - brevdbs
+            - ourdb
         environment:
-            MONGODB_HOSTNAME: brevdbs
-        volumes:
-            - .:/app
+            MONGODB_HOSTNAME: ourdb
     ourdb:
         image: mongo:latest
