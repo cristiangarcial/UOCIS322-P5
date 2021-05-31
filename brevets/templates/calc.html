@@ -66,8 +66,8 @@
                   <label>Begins at</label>
                   <input type="datetime-local" name="begin_date" id="begin_date" value="2021-01-01T00:00" />
                <div class="col-md-4">
-                    <button id="submit">Submit<\button>
-                    <button id="display">Display<\button>      
+                    <button id="submit">Submit</button>
+                    <button id="display">Display</button>      
                </div>
                <!-- columns 5 to 10 -->
             </div>
@@ -178,7 +178,7 @@
                     window.location.replace("/displayroute");
                     // redirect to /displayroute
                  });
-
+                
                 $('#submit').click(
                    // make javascript array and then push all values from html to array and then send 
                     function(e) {
@@ -200,11 +200,10 @@
                         });
                     $.post("/someroute", {brevet_data: JSON.stringify(brevet_data)},
                         function(response) 
-                        {console.log("response:", response.output)}, "json");
+                            {console.log("response:", response.output)}, "json");
                     // calculate all the non-empty fields
                  });
               });
-
          </script>
       </div>
    </body>

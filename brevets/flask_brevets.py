@@ -32,7 +32,7 @@ def index():
     app.logger.debug("Main page entry")
     return flask.render_template('calc.html')
 
-@app.route(404)
+@app.errorhandler(404)
 def page_not_found(error):
     app.logger.debug("Page not found")
     return flask.render_template('404.html'), 404
@@ -83,7 +83,7 @@ def someroute():
     db.tododb.insert_one(item_doc)
     return redirect(url_for('index'))
 
-@app.route("/displayroute", methods=['POST'])
+@app.route("/displayroute")
 def dispaly():
     return flask.render_template('displayroute.html', items=list(db.tododb.find()))
 
